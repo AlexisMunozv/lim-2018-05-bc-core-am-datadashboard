@@ -35,7 +35,6 @@ function getSede(){
         SedeContainer.appendChild(sede);
     };
   
-    console.log(data);
 }};
 
 function getUser() {
@@ -47,7 +46,8 @@ function getUser() {
         })
 }
 function user(users1){
-for(let valor of users1){
+    contenido.innerHTML='';
+ for(let valor of users1){
     console.log(valor.nombre) ;
 }}
 
