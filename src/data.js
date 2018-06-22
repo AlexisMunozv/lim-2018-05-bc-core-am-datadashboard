@@ -4,30 +4,53 @@ const AlumnasList=document.getElementById('Alumnas');
 const AlumnasContainer=document.getElementById('AlumnasContainer');
 
 
-SedeList.addEventListener('click', function(e){
+SedeList.addEventListener('click', (e)=>{
 e.preventDefault();
 SedeContainer.innerHTML = '';
 getSede();
 });
 
-AlumnasList.addEventListener('click', function(e){
-    e.preventDefault();
-    AlumnasContainer.innerHTML = '';
-    getUser();
-    });
+AlumnasList.addEventListener('click',(i)=>{
+ i.preventDefault();
+ AlumnasContainer.innerHTML = '';
+ getUser();
+});
 
+function getSede(){
+    const request = new XMLHttpRequest();
+    request.open('GET','http://192.168.1.12:8887/cohorts/lim-2018-03-pre-core-pw/users(1).json?static=1',true);
+    request.onload = addSede;
+    request.onerror = handleError;
+    request.send();
+   
+   function handleError (){
+    console.log('error');
+   }
+  
+   function addSede (){
+    const data=JSON.parse(this.responseText);
+      for (let i=0; i<5; i++){
+        let sede = document.createElement('sede');
+        sede.innerText=data[i].timezone;
+        SedeContainer.appendChild(sede);
+    };
+  
+    console.log(data);
+}};
 
 function getUser() {
-    fetch('http://192.168.1.12:8887/cohorts/lim-2018-03-pre-core-pw/users(1).json?static=1')
+    fetch('../data/cohorts/lim-2018-03-pre-core-pw/users(1).json')
         .then(res => res.json())
         .then(users1 => {
-             console.log(users1)
-           // users(users1)
-        // for(let valor of users){
-                // console.log(valor.nombre)
-              
-        });
+            // console.log(users1)
+            user(users1)
+        })
 }
+function user(users1){
+for(let valor of users1){
+    console.log(valor.nombre) ;
+}}
+
 
 /*function getProgress() {
     fetch('http://192.168.1.12:8887/cohorts/lim-2018-03-pre-core-pw/progress.json?static=1')
